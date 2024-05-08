@@ -1,14 +1,18 @@
 import express from 'express'
-import {getUsers, createUser} from './controllers/UserController.js'
-import {getHabits, getHabit, createHabit} from './controllers/HabitController.js'
+import {getUser, getUsers, createUser, deleteUser} from './controllers/UserController.js'
+import {getHabits, getHabit, createHabit, deleteHabits, deleteHabit} from './controllers/HabitController.js'
 
 const router = express.Router()
 
-router.get('/users', getUsers)
-router.post('/users', createUser)
-
-router.get('/user/:userId/habits', getHabits)
-router.get('/user/:userId/habit/:habitId', getHabit)
-router.post('/habits', createHabit)
+router
+    .post('/users', createUser)
+    .post('/habits', createHabit)
+    .delete('/user/:userId', deleteUser)
+    .delete('/user/:userId/habits', deleteHabits)
+    .delete('/habit/:habitId', deleteHabit)
+    .get('/users', getUsers)
+    .get('/user/:userId', getUser)
+    .get('/user/:userId/habits', getHabits)
+    .get('/user/:userId/habit/:habitId', getHabit)
 
 export default router
