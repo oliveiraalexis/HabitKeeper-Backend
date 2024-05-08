@@ -1,6 +1,6 @@
 import express from 'express'
-import {getUser, getUsers, createUser, deleteUser} from './controllers/UserController'
-import {getHabits, getHabit, createHabit, deleteHabits, deleteHabit} from './controllers/HabitController'
+import {getUser, getUsers, createUser, deleteUser} from './controllers/UserController.js'
+import {getHabits, getHabit, createHabit, deleteHabits, deleteHabit} from './controllers/HabitController.js'
 
 const router = express.Router()
 
