@@ -16,4 +16,16 @@ const createHabit = async (req, res) => {
     return res.status(201).json(newHabit)
 }
 
-export {getHabits, getHabit, createHabit}
+const deleteHabits = async (req, res) => {
+    const result = await Habit.deleteMany({user_id: req.params.userId})
+    if (result.deletedCount > 0) return res.status(200).json({retorno: 'Hábitos deletados'})
+    return res.status(204).json({retorno: 'Itens não encontrados'})
+}
+
+const deleteHabit = async (req, res) => {
+    const result = await Habit.deleteOne({_id: req.params.habitId})
+    if (result.deletedCount == 1) return res.status(200).json({retorno: 'Hábito deletado'})
+    return res.status(204).json({retorno: 'Item não encontrado'})
+}
+
+export {getHabits, getHabit, createHabit, deleteHabits, deleteHabit}
