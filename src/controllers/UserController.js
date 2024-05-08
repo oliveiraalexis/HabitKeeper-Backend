@@ -1,5 +1,5 @@
-import User from '../models/User.js'
-import Habit from '../models/Habit.js'
+import User from '../models/User'
+import Habit from '../models/Habit'
 
 const getUsers = async (req, res) => {
     const users = await User.find()

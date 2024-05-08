@@ -1,4 +1,4 @@
-import Habit from '../models/Habit.js'
+import Habit from '../models/Habit'
 
 const getHabits = async (req, res) => {
     const habits = await Habit.find({user_id: req.params.userId})
