@@ -3,7 +3,7 @@ const { Schema } = mongoose
 
 const habitSchema = Schema({
     name: {
-        type: "String",
+        type: 'String',
         required: true
     },
     user_id: {

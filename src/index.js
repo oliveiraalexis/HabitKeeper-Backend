@@ -10,7 +10,7 @@ app.use(router)
 connectDatabase()
 	.then(() => {
 		app.listen('3000', () =>{
-			console.log("Servidor rodando e banco de dados conectado...")
+			console.log('Servidor rodando e banco de dados conectado...')
 		})
 	})
 	.catch((error) => console.log(error))
