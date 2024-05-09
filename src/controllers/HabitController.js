@@ -42,7 +42,7 @@ const deleteHabit = async (req, res) => {
     try{
         const result = await Habit.deleteOne({_id: req.params.habitId})
         if (result.deletedCount == 1) return res.status(200).json({retorno: 'Hábito deletado'})
-        return res.status(404).json({retorno: 'Item não encontrado'})
+        return res.status(404).json({retorno: 'Hábito não encontrado'})
     } catch(error) {
         return res.status(500).json(error.message)
     }

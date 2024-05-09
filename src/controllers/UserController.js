@@ -38,7 +38,7 @@ const deleteUser = async (req, res) => {
             const users = await User.find()
             return res.status(200).json(users)
         } 
-        return res.status(404).json({retorno: 'Item não encontrado'})
+        return res.status(404).json({retorno: 'Usuário não encontrado'})
     } catch(error) {
         return res.status(500).json(error.message)
     }
