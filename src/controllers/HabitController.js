@@ -32,7 +32,7 @@ const deleteHabits = async (req, res) => {
     try{
         const result = await Habit.deleteMany({user_id: req.params.userId})
         if (result.deletedCount > 0) return res.status(200).json({retorno: 'Hábitos deletados'})
-        return res.status(204).json({retorno: 'Itens não encontrados'})
+        return res.status(404).json({retorno: 'Itens não encontrados'})
     } catch(error) {
         return res.status(500).json(error.message)
     }
@@ -42,7 +42,7 @@ const deleteHabit = async (req, res) => {
     try{
         const result = await Habit.deleteOne({_id: req.params.habitId})
         if (result.deletedCount == 1) return res.status(200).json({retorno: 'Hábito deletado'})
-        return res.status(204).json({retorno: 'Item não encontrado'})
+        return res.status(404).json({retorno: 'Item não encontrado'})
     } catch(error) {
         return res.status(500).json(error.message)
     }
