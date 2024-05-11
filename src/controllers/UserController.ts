@@ -6,8 +6,8 @@ const getUsers = async (req: Request, res: Response) => {
     try {
         const users = await User.find()
         return res.status(200).json(users)
-    } catch(error){
-        return res.status(500).json(error.message)
+    } catch(error: unknown){
+        return res.status(500).json((error as Error).message)
     }
 }
 
@@ -15,8 +15,8 @@ const getUser = async (req: Request, res: Response) => {
     try{
         const user = await User.findById(req.params.userId)
         return res.status(200).json(user)
-    } catch(error){
-        return res.status(500).json(error.message)
+    } catch(error: unknown){
+        return res.status(500).json((error as Error).message)
     }
 }
 
@@ -25,8 +25,8 @@ const createUser = async (req: Request, res: Response) => {
         const user = req.body
         const newUser = await User.create(user)
         return res.status(201).json(newUser)
-    } catch(error) {
-        return res.status(500).json(error.message)
+    } catch(error: unknown) {
+        return res.status(500).json((error as Error).message)
     }
 }
 
@@ -40,8 +40,8 @@ const deleteUser = async (req: Request, res: Response) => {
             return res.status(200).json(users)
         } 
         return res.status(404).json({retorno: 'Usuário não encontrado'})
-    } catch(error) {
-        return res.status(500).json(error.message)
+    } catch(error: unknown) {
+        return res.status(500).json((error as Error).message)
     }
 }
 
