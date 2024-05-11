@@ -1,7 +1,8 @@
 import User from '../models/User.js'
 import Habit from '../models/Habit.js'
+import {Request, Response} from 'express'
 
-const getUsers = async (req, res) => {
+const getUsers = async (req: Request, res: Response) => {
     try {
         const users = await User.find()
         return res.status(200).json(users)
@@ -10,7 +11,7 @@ const getUsers = async (req, res) => {
     }
 }
 
-const getUser = async (req, res) => {
+const getUser = async (req: Request, res: Response) => {
     try{
         const user = await User.findById(req.params.userId)
         return res.status(200).json(user)
@@ -19,7 +20,7 @@ const getUser = async (req, res) => {
     }
 }
 
-const createUser = async (req, res) => {
+const createUser = async (req: Request, res: Response) => {
     try{
         const user = req.body
         const newUser = await User.create(user)
@@ -29,7 +30,7 @@ const createUser = async (req, res) => {
     }
 }
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req: Request, res: Response) => {
     try{
         const deletedUser = await User.deleteOne({_id: req.params.userId})
         if (deletedUser.deletedCount == 1) 
