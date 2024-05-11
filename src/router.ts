@@ -1,18 +1,20 @@
 import express from 'express'
-import {getUser, getUsers, createUser, deleteUser} from './controllers/UserController.js'
-import {getHabits, getHabit, createHabit, deleteHabits, deleteHabit} from './controllers/HabitController.js'
+import {UserController} from './controllers/UserController.js'
+import {HabitController} from './controllers/HabitController.js'
 
 const router = express.Router()
+const userController = new UserController()
+const habitController = new HabitController()
 
 router
-    .post('/users', createUser)
-    .post('/habits', createHabit)
-    .delete('/user/:userId', deleteUser)
-    .delete('/user/:userId/habits', deleteHabits)
-    .delete('/habit/:habitId', deleteHabit)
-    .get('/users', getUsers)
-    .get('/user/:userId', getUser)
-    .get('/user/:userId/habits', getHabits)
-    .get('/user/:userId/habit/:habitId', getHabit)
+    .post('/users', userController.createUser)
+    .post('/habits', habitController.createHabit)
+    .delete('/user/:userId', userController.deleteUser)
+    .delete('/user/:userId/habits', habitController.deleteHabits)
+    .delete('/habit/:habitId', habitController.deleteHabit)
+    .get('/users', userController.getUsers)
+    .get('/user/:userId', userController.getUser)
+    .get('/user/:userId/habits', habitController.getHabits)
+    .get('/user/:userId/habit/:habitId', habitController.getHabit)
 
 export default router
