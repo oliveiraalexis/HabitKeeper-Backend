@@ -1,7 +1,14 @@
 import mongoose from 'mongoose'
 const { Schema } = mongoose
 
-const userSchema = Schema({
+interface IUser {
+    name: 'String',
+    username: 'String',
+    password: 'String',
+    createdAt: Date
+}
+
+const userSchema = new Schema<IUser>({
     name: {
         type: 'String',
         required: true

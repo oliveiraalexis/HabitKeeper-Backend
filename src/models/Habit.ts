@@ -1,13 +1,20 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 const { Schema } = mongoose
 
-const habitSchema = Schema({
+interface IHabit {
+    name: "String",
+    user_id: Types.ObjectId,
+    trackedDays: [Date],
+    createdAt: Date
+}
+
+const habitSchema = new Schema<IHabit>({
     name: {
         type: 'String',
         required: true
     },
     user_id: {
-        type: mongoose.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     },
     trackedDays: {
