@@ -1,6 +1,7 @@
 import Habit from '../models/Habit.js'
+import {Request, Response} from 'express'
 
-const getHabits = async (req, res) => {
+const getHabits = async (req: Request, res: Response) => {
     try{
         const habits = await Habit.find({user_id: req.params.userId})
         return res.status(200).json(habits)
@@ -9,7 +10,7 @@ const getHabits = async (req, res) => {
     }
 }
 
-const getHabit = async (req, res) => {
+const getHabit = async (req: Request, res: Response) => {
     try{
         const habits = await Habit.find({_id: req.params.habitId, user_id: req.params.userId})
         return res.status(200).json(habits)
@@ -18,7 +19,7 @@ const getHabit = async (req, res) => {
     }
 }
 
-const createHabit = async (req, res) => {
+const createHabit = async (req: Request, res: Response) => {
     try{
         const habit = req.body
         const newHabit = await Habit.create(habit)
@@ -28,7 +29,7 @@ const createHabit = async (req, res) => {
     }
 }
 
-const deleteHabits = async (req, res) => {
+const deleteHabits = async (req: Request, res: Response) => {
     try{
         const result = await Habit.deleteMany({user_id: req.params.userId})
         if (result.deletedCount > 0) return res.status(200).json({retorno: 'Hábitos deletados'})
@@ -38,7 +39,7 @@ const deleteHabits = async (req, res) => {
     }
 }
 
-const deleteHabit = async (req, res) => {
+const deleteHabit = async (req: Request, res: Response) => {
     try{
         const result = await Habit.deleteOne({_id: req.params.habitId})
         if (result.deletedCount == 1) return res.status(200).json({retorno: 'Hábito deletado'})
