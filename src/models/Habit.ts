@@ -23,7 +23,7 @@ const habitSchema = new Schema<IHabit>({
     },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
 })
 
