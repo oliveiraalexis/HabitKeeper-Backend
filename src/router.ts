@@ -9,6 +9,7 @@ const habitController = new HabitController()
 router
     .post('/users', userController.createUser)
     .post('/habits', habitController.createHabit)
+    .put('/habit/:habitId', habitController.updateHabit)
     .delete('/user/:userId', userController.deleteUser)
     .delete('/user/:userId/habits', habitController.deleteHabits)
     .delete('/habit/:habitId', habitController.deleteHabit)

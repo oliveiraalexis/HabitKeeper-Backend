@@ -50,4 +50,14 @@ export class HabitController {
             return res.status(500).json((error as Error).message)
         }
     }
+
+    updateHabit = async (req: Request, res: Response) => {
+        try{
+            const result = await Habit.updateOne({_id: req.params.habitId}, req.body)
+            if(result.modifiedCount && result.modifiedCount == 1) return res.status(200).json({retorno: 'Hábito atualizado'})
+                return res.status(404).json({retorno: 'Não foi possível atualizar o hábito'})
+        } catch(error: unknown) {
+            return res.status(500).json((error as Error).message)
+        }
+    }
 }
