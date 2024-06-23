@@ -14,7 +14,7 @@ export class HabitController {
     
     getHabit = async (req: Request, res: Response) => {
         try{
-            const habits = await Habit.find({_id: req.params.habitId, user_id: req.params.userId})
+            const habits = await Habit.findOne({_id: req.params.habitId, user_id: req.params.userId})
             return res.status(200).json(habits)
         } catch(error: unknown) {
             return res.status(500).json((error as Error).message)
