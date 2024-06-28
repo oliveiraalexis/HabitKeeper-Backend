@@ -18,7 +18,7 @@ const habitSchema = new Schema<IHabit>({
         ref: 'User'
     },
     trackedDays: {
-        type: [Date],
+        type: ['String'],
         default: []
     },
     createdAt: {
