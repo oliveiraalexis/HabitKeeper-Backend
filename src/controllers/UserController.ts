@@ -1,6 +1,7 @@
 import User from '../models/User.js'
 import Habit from '../models/Habit.js'
 import {Request, Response} from 'express'
+import bcrypt from 'bcrypt'
 
 export class UserController {
 
@@ -24,7 +25,14 @@ export class UserController {
     
     createUser = async (req: Request, res: Response) => {
         try{
-            const user = req.body
+            const {name, username, password} = req.body
+            const salt = await bcrypt.genSalt(12)
+            const hashedPassword = await bcrypt.hash(password, salt)
+            const user = {
+                name,
+                username,
+                password: hashedPassword
+            }
             const newUser = await User.create(user)
             return res.status(201).json(newUser)
         } catch(error: unknown) {
