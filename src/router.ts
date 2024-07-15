@@ -17,5 +17,6 @@ router
     .get('/user/:userId', userController.getUser)
     .get('/user/:userId/habits', habitController.getHabits)
     .get('/user/:userId/habit/:habitId', habitController.getHabit)
+    .post('/login', userController.loginUser)
 
 export default router

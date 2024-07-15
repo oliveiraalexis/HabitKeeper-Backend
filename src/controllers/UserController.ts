@@ -22,19 +22,47 @@ export class UserController {
             return res.status(500).json((error as Error).message)
         }
     }
+
+    getUserByUsername = async (req: Request, res: Response) => {
+        try{
+            const user = await User.findOne({username: req.params.username})
+            if (user) return res.status(200).json(user)
+            return res.status(404).json({retorno: 'Usuário não encontrado'}) 
+        } catch(error: unknown){
+            return res.status(500).json((error as Error).message)
+        }
+    }
+
+    loginUser = async (req: Request, res: Response) => {
+        try{
+            const user = await User.findOne({username: req.body.username})
+            if (user) {
+                const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password)
+                if (isPasswordCorrect) return res.status(200).json(user)
+                return res.status(401).json({retorno: 'Senha incorreta'})
+            }
+            return res.status(404).json({retorno: 'Usuário não encontrado'}) 
+        } catch(error: unknown){
+            return res.status(500).json((error as Error).message)
+        }
+    }
     
     createUser = async (req: Request, res: Response) => {
         try{
-            const {name, username, password} = req.body
-            const salt = await bcrypt.genSalt(12)
-            const hashedPassword = await bcrypt.hash(password, salt)
-            const user = {
-                name,
-                username,
-                password: hashedPassword
+            const user = await User.findOne({username: req.body.username})
+            if (!user){
+                const {name, username, password} = req.body
+                const salt = await bcrypt.genSalt(12)
+                const hashedPassword = await bcrypt.hash(password, salt)
+                const user = {
+                    name,
+                    username,
+                    password: hashedPassword
+                }
+                const newUser = await User.create(user)
+                return res.status(201).json(newUser)
             }
-            const newUser = await User.create(user)
-            return res.status(201).json(newUser)
+            return res.status(409).json({retorno: 'Usuário já cadstrado'})
         } catch(error: unknown) {
             return res.status(500).json((error as Error).message)
         }
