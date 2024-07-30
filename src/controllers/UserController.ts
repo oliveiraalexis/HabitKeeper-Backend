@@ -41,7 +41,7 @@ export class UserController {
                 if (isPasswordCorrect) return res.status(200).json(user)
                 return res.status(401).json({retorno: 'Senha incorreta'})
             }
-            return res.status(404).json({retorno: 'Usuário não encontrado'}) 
+            return res.status(404).json({retorno: 'Usuário não encontrado'})
         } catch(error: unknown){
             return res.status(500).json((error as Error).message)
         }
@@ -78,6 +78,25 @@ export class UserController {
                 return res.status(200).json(users)
             } 
             return res.status(404).json({retorno: 'Usuário não encontrado'})
+        } catch(error: unknown) {
+            return res.status(500).json((error as Error).message)
+        }
+    }
+
+    updateUser = async (req: Request, res: Response) => {
+        try{
+            const {name, username, password} = req.body
+                const salt = await bcrypt.genSalt(12)
+                const hashedPassword = await bcrypt.hash(password, salt)
+                const updatedUser = {
+                    name,
+                    username,
+                    password: hashedPassword
+                }
+
+            const result = await User.updateOne({_id: req.params.userId}, updatedUser)
+            if(result.modifiedCount && result.modifiedCount == 1) return res.status(200).json({retorno: 'Usuário atualizado'})
+                return res.status(404).json({retorno: 'Não foi possível atualizar os dados do usuário'})
         } catch(error: unknown) {
             return res.status(500).json((error as Error).message)
         }
